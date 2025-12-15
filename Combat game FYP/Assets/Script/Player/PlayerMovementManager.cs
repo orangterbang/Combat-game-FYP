@@ -29,11 +29,6 @@ public class PlayerMovementManager : CharacterMovementManager
         lastMoveDirection = Vector3.right;
     }
 
-    void Update()
-    {
-        HandleAllMovement();
-    }
-
     public void HandleAllMovement()
     {
         //Ground movement(i.e left-right, dodge)
@@ -73,15 +68,23 @@ public class PlayerMovementManager : CharacterMovementManager
 
     private void MoveDirectionRotate()
     {
-        //Works in idling situation, when combat need to make the rotation more snappy
-        //Can just increase rotation speed for combat
+        
         if(moveDirection != Vector3.zero)
         {
             lastMoveDirection = moveDirection.normalized;
+        }
+
+        if(lastMoveDirection != Vector3.zero)
+        {
             targetRotation = Quaternion.LookRotation(lastMoveDirection);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+        
+    }
+
+    private void HandleDodgeMovement()
+    {
         
     }
 }

@@ -10,6 +10,11 @@ public class CharacterManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+    protected virtual void LateUpdate()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {

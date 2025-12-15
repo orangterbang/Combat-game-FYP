@@ -210,3 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c5febe1e17d454bb939cb4362f9b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  cameraObject: {fileID: 7194044561083671763}
+  cameraVelocity: {x: 0, y: 0, z: 0}
+  cameraOffsetPosition: {x: 0, y: 1.8, z: 0}
+  cameraSmoothSpeed: 0
