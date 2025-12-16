@@ -450,8 +450,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   rotationSpeed: 13
-  gravityValue: -30.81
+  gravityValue: -9.81
   verticalVelocity: 0
+  dodgeSpeed: 2
 --- !u!114 &812106261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +466,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
+  animator: {fileID: 0}
+  isPerformingAction: 0
+  canMove: 1
+  canRotate: 1
+  playerMovementManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerCombatManager: {fileID: 0}
 --- !u!143 &812106263
 CharacterController:
   m_ObjectHideFlags: 0
@@ -490,6 +498,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &812106266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812106258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3dd4e8e93624f44cb3f0f6b955b8876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1752802764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0750b0cc77ce2374381147608f079525, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0750b0cc77ce2374381147608f079525, type: 3}
       propertyPath: m_LocalPosition.z
@@ -559,6 +579,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0750b0cc77ce2374381147608f079525, type: 3}
       insertIndex: -1
       addedObject: {fileID: 812106259}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0750b0cc77ce2374381147608f079525, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 812106266}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0750b0cc77ce2374381147608f079525, type: 3}
       insertIndex: -1
       addedObject: {fileID: 812106263}

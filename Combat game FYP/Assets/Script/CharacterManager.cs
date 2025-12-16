@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    public CharacterController characterController;
+    [HideInInspector]public CharacterController characterController;
+    [HideInInspector]public Animator animator;
+    
+    [Header("Flags")]
+    public bool isPerformingAction = false;
+    public bool canMove = true;
+    public bool canRotate = true;
+
     protected virtual void Awake()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
 
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     protected virtual void LateUpdate()

@@ -1,21 +1,29 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-//Goal
-//1. Make player move left and right
-//2. 
+//Note for this class
+//1. Control player movement based on input
+//2. Play animation
 
 public class PlayerMovementManager : CharacterMovementManager
 {
     PlayerManager player;
 
+    [Header("Movement Setting")]
     Vector3 moveDirection;
     Vector3 lastMoveDirection;
     Quaternion targetRotation;
-
     [SerializeField]float moveSpeed = 3f;
     [SerializeField]float rotationSpeed = 3f;
-    [SerializeField]float gravityValue = -30.81f;
+    [SerializeField]float gravityValue = -9.81f;
     [SerializeField]float verticalVelocity = 0f;
+
+    [Header("Dodge Setting")]
+    Vector3 dodgeDirection;
+    Vector3 dodgeVelocity;
+    [SerializeField]float dodgeSpeed = 2f;
+    bool isdodging = false;
+
 
     protected override void Awake()
     {
@@ -34,14 +42,37 @@ public class PlayerMovementManager : CharacterMovementManager
         //Ground movement(i.e left-right, dodge)
         //Aerial movement(i.e falling)
         HandleGroundMovement();
+
+        if (PlayerInput.Instance.dodgeInput)
+        {
+            HandleDodgeMovement();
+        }
     }
 
+    //MOVEMENT
     private void HandleGroundMovement()
     {
-        //need to check if player on ground
+        if (!player.canMove)
+        {
+            return;
+        }
+
         CalculateVelocity();
         player.characterController.Move(GetMovementVector() * Time.deltaTime);
+        PlayMovementAnim();
         MoveDirectionRotate();
+    }
+
+    private void PlayMovementAnim()
+    {
+        if(PlayerInput.Instance.MovementInputValue != 0)
+        {
+            player.playerAnimatorManager.PlayMovementAnimator(true);
+        }
+        else
+        {
+            player.playerAnimatorManager.PlayMovementAnimator(false);
+        }
     }
 
     private void CalculateVelocity()
@@ -68,7 +99,10 @@ public class PlayerMovementManager : CharacterMovementManager
 
     private void MoveDirectionRotate()
     {
-        
+        if (!player.canRotate)
+        {
+            return;
+        }
         if(moveDirection != Vector3.zero)
         {
             lastMoveDirection = moveDirection.normalized;
@@ -83,8 +117,39 @@ public class PlayerMovementManager : CharacterMovementManager
         
     }
 
+    //DODGE
     private void HandleDodgeMovement()
     {
+        if(player.isPerformingAction)
+        {
+            return;
+        }
+
+        if(PlayerInput.Instance.MovementInputValue != 0)
+        {
+            //Perform dodge/roll according to player direction
+            dodgeDirection = lastMoveDirection.normalized;
+
+            player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward", true, 2, true);
+        }
+        else
+        {
+            //Perform Dodge behind
+            dodgeDirection = Vector3.Scale(lastMoveDirection, Vector3.left);
+            player.playerAnimatorManager.PlayTargetActionAnimation("Dodge_Back", true, 2, true);
+        }
         
+        dodgeVelocity = dodgeDirection * dodgeSpeed;
+        isdodging = true;
+    }
+
+    void OnAnimatorMove()
+    {//&& PlayerInput.Instance.dodgeInput
+        if(player.isPerformingAction && player.animator.applyRootMotion)
+        {
+            player.characterController.Move(dodgeVelocity * Time.deltaTime);
+
+            isdodging = false;
+        }
     }
 }
