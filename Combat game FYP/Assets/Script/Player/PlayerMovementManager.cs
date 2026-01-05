@@ -22,7 +22,6 @@ public class PlayerMovementManager : CharacterMovementManager
     Vector3 dodgeDirection;
     Vector3 dodgeVelocity;
     [SerializeField]float dodgeSpeed = 2f;
-    bool isdodging = false;
 
 
     protected override void Awake()
@@ -140,7 +139,6 @@ public class PlayerMovementManager : CharacterMovementManager
         }
         
         dodgeVelocity = dodgeDirection * dodgeSpeed;
-        isdodging = true;
     }
 
     void OnAnimatorMove()
@@ -148,8 +146,6 @@ public class PlayerMovementManager : CharacterMovementManager
         if(player.isPerformingAction && player.animator.applyRootMotion)
         {
             player.characterController.Move(dodgeVelocity * Time.deltaTime);
-
-            isdodging = false;
         }
     }
 }

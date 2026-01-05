@@ -23,6 +23,11 @@ public class CharacterManager : MonoBehaviour
         
     }
 
+    protected virtual void FixedUpdate()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
