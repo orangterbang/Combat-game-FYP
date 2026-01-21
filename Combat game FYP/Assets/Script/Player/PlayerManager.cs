@@ -23,7 +23,7 @@ public class PlayerManager : CharacterManager
         
     }
     
-    void Update()
+    protected override void Update()
     {
         playerMovementManager.HandleAllMovement();
         playerCombatManager.HandleAllCombatAction();

@@ -9,6 +9,11 @@ public class CharacterAnimatorManager : MonoBehaviour
         character = GetComponent<CharacterManager>();
     }
 
+    protected virtual void Update()
+    {
+        
+    }
+
     //function that do the animation
     public void PlayMovementAnimator(bool isMoving = false)
     {
