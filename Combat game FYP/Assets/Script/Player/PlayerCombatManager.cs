@@ -8,7 +8,6 @@ public class PlayerCombatManager : CharacterCombatManager
     [Header("Parry Setting")]
     private bool isParrying;
     public LayerMask opponentAttackLayerMask = -1;
-    public static event Action OnPlayerParry;
 
     protected override void Awake()
     {

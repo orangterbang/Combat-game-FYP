@@ -24,6 +24,7 @@ public class AICharacterManager : CharacterManager
     [Header("AI Character Flags")]
     public bool isMoving;
     public bool isStunned = false;
+    private bool wasStunnedLastFrame = false;
 
     protected override void Awake()
     {
@@ -51,6 +52,7 @@ public class AICharacterManager : CharacterManager
         base.Update();
 
         aICharacterCombatManager.HandleActionRecovery(this);
+        aICharacterCombatManager.HandleStunRecovery(this);
     }
 
     protected override void FixedUpdate()
@@ -113,5 +115,17 @@ public class AICharacterManager : CharacterManager
 
         //if the player managed to parry, check if this ai is stunned
         //If true, then play stunned animation
+
+        if (isStunned && !wasStunnedLastFrame)
+        {
+            
+            aIAnimatorManager.PlayStunnedAnimation();
+        }
+        else if(!isStunned && wasStunnedLastFrame)
+        {
+            aIAnimatorManager.StopStunnedAnimation();
+        }
+
+        wasStunnedLastFrame = isStunned;
     }
 }

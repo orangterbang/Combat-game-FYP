@@ -18,6 +18,11 @@ public class AttackState : AIState
             return SwitchState(aiCharacter, aiCharacter.idle);
         }
 
+        if (aiCharacter.isStunned)
+        {
+            return SwitchState(aiCharacter, aiCharacter.stun);
+        }
+
         //If the target character is dead, then switch state to idle
 
         //Rotate towards the target while attacking (Optional/not nessecary)

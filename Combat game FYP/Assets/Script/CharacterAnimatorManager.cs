@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterAnimatorManager : MonoBehaviour
 {
-    CharacterManager character;
+    protected CharacterManager character;
 
     protected virtual void Awake()
     {
@@ -29,7 +29,7 @@ public class CharacterAnimatorManager : MonoBehaviour
         bool canMove = false)
     {
         character.animator.applyRootMotion = applyRootMotion;
-        character.animator.CrossFade(targetAnimation, 0.2f, targetLayer);
+        character.animator.CrossFade(targetAnimation, 0.1f, targetLayer);
 
         character.isPerformingAction = isPerformingAction;
         character.canMove = canMove;

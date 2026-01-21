@@ -6,6 +6,9 @@ public class AICharacterCombatManager : CharacterCombatManager
     [Header("Action Recovery")]
     public float actionRecoveryTimer = 0;
 
+    [Header("Stun Recovery")]
+    public float stunRecoveryTimer = 0;
+
     [Header("Detection")]
     [SerializeField] float detectionRadius = 15;
     [SerializeField] float minimumDetectionAngle = -90;
@@ -76,6 +79,17 @@ public class AICharacterCombatManager : CharacterCombatManager
             if (!aiCharacter.isPerformingAction)
             {
                 actionRecoveryTimer -= Time.deltaTime;
+            }
+        }
+    }
+
+    public void HandleStunRecovery(AICharacterManager aiCharacter)
+    {
+        if(stunRecoveryTimer > 0)
+        {
+            if (aiCharacter.isStunned)
+            {
+                stunRecoveryTimer -= Time.deltaTime;
             }
         }
     }
