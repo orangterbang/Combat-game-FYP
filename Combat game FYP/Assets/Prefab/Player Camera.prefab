@@ -214,4 +214,5 @@ MonoBehaviour:
   cameraObject: {fileID: 7194044561083671763}
   cameraVelocity: {x: 0, y: 0, z: 0}
   cameraOffsetPosition: {x: 0, y: 1.8, z: 0}
+  cameraLockPosition: {x: 0, y: 0, z: 0}
   cameraSmoothSpeed: 0
